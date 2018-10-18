@@ -34,6 +34,12 @@ namespace Calculator.Objects
 
         public void AppendDigit(int digit)
         {
+            if (_state.JustEvaluated)
+            {
+                _state.Input = null;
+                _state.Operator = null;
+            }
+
             if (!_state.Input.HasValue)
             {
                 _state.Input = digit;
@@ -43,9 +49,8 @@ namespace Calculator.Objects
                 _state.Input = _state.Input * 10 + digit;
             }
 
-            _state.Operator = null;
-            _state.StoredRhs = null;
-            SetOutput(_state.Input.ToString());
+            _state.JustEvaluated = false;
+            SetOutput(_state.Input);
         }
 
         public void Reset()
@@ -57,23 +62,29 @@ namespace Calculator.Objects
         public void SetOperator(Operator op)
         {
             _state.Operator = op;
-            _state.EvaluateResult();
-            _state.Input = null;
+            EvaluateAndSetOutput();
 
-            SetOutput(_state.StoredResult.ToString());
+            _state.Input = null;
+            _state.JustEvaluated = false;
         }
 
         public void Evaluate()
         {
-            if (_state.Input.HasValue)
+            EvaluateAndSetOutput();
+            _state.JustEvaluated = true;
+        }
+
+        private void EvaluateAndSetOutput()
+        {
+            try
             {
-                _state.StoredRhs = _state.Input.Value;
-                _state.Input = null;
+                _state.EvaluateResult();
+                SetOutput(_state.StoredResult);
             }
-
-            _state.EvaluateResult();
-
-            SetOutput(_state.StoredResult.ToString());
+            catch (DivideByZeroException)
+            {
+                SetOutput("ERROR");
+            }
         }
 
         private long Clamp(long rawResult)
@@ -81,9 +92,14 @@ namespace Calculator.Objects
             return Math.Max(Math.Min(rawResult, ValueLimitUpper), ValueLimitLower);
         }
 
+        private void SetOutput(long? output)
+        {
+            SetOutput(Clamp(output ?? 0).ToString());
+        }
+
         protected virtual void SetOutput(string output)
         {
-            OutputChanged?.Invoke(output);
+            OutputChanged?.Invoke(output ?? PaddingChar.ToString());
         }
     }
 }

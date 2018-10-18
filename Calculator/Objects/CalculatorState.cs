@@ -8,8 +8,8 @@ namespace Calculator.Objects
     {
         public Operator? Operator { get; set; }
         public long? Input { get; set; }
-        public long? StoredRhs { get; set; }
         public long? StoredResult { get; set; }
+        public bool JustEvaluated { get; set; }
 
         public void EvaluateResult()
         {
@@ -19,15 +19,18 @@ namespace Calculator.Objects
         [Pure]
         public long GetEvaluatedResult()
         {
-            long lhs = StoredResult ?? Input ?? 0;
-
-            if (Operator is null) return lhs;
-
-            long rhs = StoredRhs ?? Input ?? 0;
+            long lhs = StoredResult ?? 0;
+            long rhs = Input ?? 0;
 
             if (StoredResult is null) return rhs;
+            if (Operator is null) return rhs;
 
             return CalculatorHelper.EvaluateExpression(lhs, rhs, Operator.Value);
+        }
+
+        public override string ToString()
+        {
+            return $"e:{JustEvaluated} : {StoredResult?.ToString() ?? "null"} : {Operator?.ToString() ?? "null"} : {Input?.ToString() ?? "null"}";
         }
     }
 }

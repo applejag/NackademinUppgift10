@@ -40,7 +40,7 @@
             <Viewbox HorizontalAlignment="Right" Margin="10,4">
                 <Grid>
                     <TextBlock Text="888888888888" x:Name="DigitBackgroundWindow" Foreground="#FF002302" TextAlignment="Right" FontSize="50" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Right" FontFamily="/Calculator;component/Assets/Fonts/#Digital-7 Mono"/>
-                    <TextBlock Text="ERROR" x:Name="DigitWindow" Foreground="#FF00FF0C" TextAlignment="Right" FontSize="50" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Right" FontFamily="/Calculator;component/Assets/Fonts/#Digital-7 Mono"/>
+                    <TextBlock Text="0" x:Name="DigitWindow" Foreground="#FF00FF0C" TextAlignment="Right" FontSize="50" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Right" FontFamily="/Calculator;component/Assets/Fonts/#Digital-7 Mono"/>
                 </Grid>
             </Viewbox>
         </Border>
