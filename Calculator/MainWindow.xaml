@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="475.371" Width="408.754">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Content="7" Grid.Column="0" Margin="10" Grid.Row="1"/>
+        <Button Content="4" Grid.Column="0" Margin="10" Grid.Row="2"/>
+        <Button Content="1" Grid.Column="0" Margin="10" Grid.Row="3"/>
+        <Button Content="C" Grid.Column="0" Margin="10" Grid.Row="4"/>
+        <Button Content="8" Grid.Column="1" Margin="10" Grid.Row="1"/>
+        <Button Content="5" Grid.Column="1" Margin="10" Grid.Row="2"/>
+        <Button Content="2" Grid.Column="1" Margin="10" Grid.Row="3"/>
+        <Button Content="0" Grid.Column="1" Margin="10" Grid.Row="4"/>
+        <Button Content="9" Grid.Column="2" Margin="10" Grid.Row="1"/>
+        <Button Content="6" Grid.Column="2" Margin="10" Grid.Row="2"/>
+        <Button Content="3" Grid.Column="2" Margin="10" Grid.Row="3"/>
+        <Button Content="=" Grid.Column="2" Margin="10" Grid.Row="4"/>
+        <Button Content="+" Grid.Column="3" Margin="10" Grid.Row="1"/>
+        <Button Content="-" Grid.Column="3" Margin="10" Grid.Row="2"/>
+        <Button Content="*" Grid.Column="3" Margin="10" Grid.Row="3"/>
+        <Button Content="/" Grid.Column="3" Margin="10" Grid.Row="4"/>
+        <Border BorderBrush="Black" Background="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="10">
+            <Viewbox HorizontalAlignment="Right" Margin="10,4">
+                <TextBlock Text="00000000" Foreground="#FF00FF0C" TextAlignment="Right" FontSize="48" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Right" FontFamily="Wide Latin"/>
+            </Viewbox>
+        </Border>
+
     </Grid>
 </Window>
