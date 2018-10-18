@@ -36,7 +36,7 @@
         <Button Content="-" Grid.Column="3" Margin="10" Grid.Row="2"/>
         <Button Content="*" Grid.Column="3" Margin="10" Grid.Row="3"/>
         <Button Content="/" Grid.Column="3" Margin="10" Grid.Row="4"/>
-        <Border BorderBrush="Black" Background="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="10">
+        <Border BorderBrush="#FF2BFF00" Background="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="10">
             <Viewbox HorizontalAlignment="Right" Margin="10,4">
                 <TextBlock Text="00000000" Foreground="#FF00FF0C" TextAlignment="Right" FontSize="48" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Right" FontFamily="Wide Latin"/>
             </Viewbox>
