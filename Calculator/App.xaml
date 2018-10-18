@@ -4,6 +4,20 @@
              xmlns:local="clr-namespace:Calculator"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style BasedOn="{StaticResource {x:Type Button}}"
+               TargetType="Button"
+               x:Key="CalcButton">
+            <Setter Property="Background" Value="Gainsboro"></Setter>
+            <Setter Property="BorderBrush" Value="SlateGray"></Setter>
+            <Setter Property="FontSize" Value="50 px"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontFamily" Value="/Calculator;component/Assets/Fonts/#Digital-7 Mono"></Setter>
+        </Style>
+        <Style BasedOn="{StaticResource CalcButton}"
+               TargetType="Button"
+               x:Key="CalcOperationButton">
+            <Setter Property="Foreground" Value="DarkSlateGray"></Setter>
+            <Setter Property="Background" Value="FloralWhite"></Setter>
+        </Style>
     </Application.Resources>
 </Application>
