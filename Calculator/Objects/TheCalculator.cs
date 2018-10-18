@@ -10,19 +10,8 @@ namespace Calculator.Objects
 {
     public class TheCalculator
     {
-        private long? _input;
-
-        public long? Input {
-            get => _input;
-            private set {
-                if (_input == value) return;
-                _input = value;
-                OnInputChanged();
-            }
-        }
-
-        public Operator? Operator { get; private set; }
-        public long? PreviousInput { get; private set; }
+        private CalculatorState _state;
+        public CalculatorState State => _state;
 
         public int NumOfDigits { get; }
         public long ValueLimitUpper { get; }
@@ -30,75 +19,71 @@ namespace Calculator.Objects
         public long AppendLimit { get; }
         public char PaddingChar { get; set; } = '0';
 
-        public event EventHandler InputChanged;
+        public event Action<string> OutputChanged;
 
         public TheCalculator(int numOfDigits)
         {
             NumOfDigits = numOfDigits;
-            // 4 digits => 10^4 - 1 => 9999
+            // 4 digits limit => 10^4 - 1 = 9999
             ValueLimitUpper = (long)Math.Pow(10, NumOfDigits) - 1;
+            // compensate to make room for - sign
             ValueLimitLower = -(long)Math.Pow(10, NumOfDigits - 1) + 1;
+
             AppendLimit = (long)Math.Pow(10, NumOfDigits - 1) - 1;
         }
 
         public void AppendDigit(int digit)
         {
-            if (!Input.HasValue)
+            if (!_state.Input.HasValue)
             {
-                Input = digit;
+                _state.Input = digit;
             }
-            else if (Input <= AppendLimit)
+            else if (_state.Input <= AppendLimit)
             {
-                Input = Input * 10 + digit;
+                _state.Input = _state.Input * 10 + digit;
             }
+
+            _state.Operator = null;
+            _state.StoredRhs = null;
+            SetOutput(_state.Input.ToString());
         }
 
         public void Reset()
         {
-            Input = null;
-            PreviousInput = null;
-            Operator = null;
+            _state = new CalculatorState();
+            SetOutput(PaddingChar.ToString());
         }
 
         public void SetOperator(Operator op)
         {
-            PreviousInput = GetEvaluatedResult();
-            Operator = op;
-            Input = null;
+            _state.Operator = op;
+            _state.EvaluateResult();
+            _state.Input = null;
+
+            SetOutput(_state.StoredResult.ToString());
         }
 
         public void Evaluate()
         {
-            PreviousInput = GetEvaluatedResult();
-            Input = null;
-            Operator = null;
+            if (_state.Input.HasValue)
+            {
+                _state.StoredRhs = _state.Input.Value;
+                _state.Input = null;
+            }
+
+            _state.EvaluateResult();
+
+            SetOutput(_state.StoredResult.ToString());
         }
 
-        [Pure]
-        public long GetEvaluatedResult()
+        private long Clamp(long rawResult)
         {
-            if (PreviousInput is null) return Input ?? 0;
-            if (Input is null) return PreviousInput ?? 0;
-            if (Operator is null) return Input ?? 0;
-
-            long rawResult = CalculatorHelper.EvaluateExpression(PreviousInput.Value, Input.Value, Operator.Value);
-
-            // Clamp
             return Math.Max(Math.Min(rawResult, ValueLimitUpper), ValueLimitLower);
         }
 
-        public override string ToString()
+        protected virtual void SetOutput(string output)
         {
-            long? value = Operator.HasValue && !Input.HasValue
-                ? PreviousInput
-                : Input;
-
-            return value?.ToString() ?? PaddingChar.ToString();
-        }
-
-        protected virtual void OnInputChanged()
-        {
-            InputChanged?.Invoke(this, EventArgs.Empty);
+            OutputChanged?.Invoke(output);
         }
     }
 }

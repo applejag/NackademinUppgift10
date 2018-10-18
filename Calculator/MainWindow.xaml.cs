@@ -30,12 +30,12 @@ namespace Calculator
             InitializeComponent();
 
             _calculator = new TheCalculator(12);
-            _calculator.InputChanged += CalculatorOnInputChanged;
+            _calculator.OutputChanged += CalculatorOnOutputChanged;
         }
 
-        private void CalculatorOnInputChanged(object sender, EventArgs e)
+        private void CalculatorOnOutputChanged(string output)
         {
-            DigitWindow.Text = _calculator.ToString();
+            DigitWindow.Text = output;
         }
 
         private void DigitButton_Click(object sender, RoutedEventArgs e)
