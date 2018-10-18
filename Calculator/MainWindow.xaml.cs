@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Calculator.Helpers;
 using Calculator.Objects;
 
 namespace Calculator
@@ -28,7 +29,7 @@ namespace Calculator
         {
             InitializeComponent();
 
-            _calculator = new TheCalculator(DigitBackgroundWindow.Text.Length);
+            _calculator = new TheCalculator(12);
             _calculator.InputChanged += CalculatorOnInputChanged;
         }
 
@@ -47,6 +48,21 @@ namespace Calculator
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             _calculator.Reset();
+        }
+
+        private void EvaluateButton_Click(object sender, RoutedEventArgs e)
+        {
+            _calculator.Evaluate();
+        }
+
+        private void OperatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is Button button)) return;
+
+            char c = ((string) button.Content)[0];
+            Operator op = CalculatorHelper.CharToOperator(c);
+
+            _calculator.SetOperator(op);
         }
     }
 }
