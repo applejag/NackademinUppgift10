@@ -53,8 +53,7 @@ namespace Calculator.Objects
 
         public override string ToString()
         {
-            return (Input?.ToString() ?? PaddingChar.ToString())
-                .PadLeft(NumOfDigits, PaddingChar);
+            return Input?.ToString() ?? PaddingChar.ToString();
         }
 
         protected virtual void OnInputChanged()

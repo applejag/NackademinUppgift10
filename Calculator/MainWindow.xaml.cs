@@ -28,7 +28,7 @@ namespace Calculator
         {
             InitializeComponent();
 
-            _calculator = new TheCalculator(DigitWindow.Text.Length);
+            _calculator = new TheCalculator(DigitBackgroundWindow.Text.Length);
             _calculator.InputChanged += CalculatorOnInputChanged;
         }
 
@@ -42,6 +42,11 @@ namespace Calculator
             if (!(sender is Button button)) return;
             
             _calculator.AppendDigit(int.Parse((string) button.Content));
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            _calculator.Reset();
         }
     }
 }
