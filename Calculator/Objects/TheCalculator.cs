@@ -36,8 +36,7 @@ namespace Calculator.Objects
         {
             if (_state.JustEvaluated)
             {
-                _state.Input = null;
-                _state.Operator = null;
+                _state = new CalculatorState();
             }
 
             if (!_state.Input.HasValue)
