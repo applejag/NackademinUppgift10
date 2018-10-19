@@ -68,9 +68,15 @@ namespace Calculator
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Button button = GetButtonFromKey(e.Key);
-            if (button != null)
+            if (e.Key == Key.Delete || e.Key == Key.Back)
             {
+                _calculator.RemoveDigit();
+            }
+            else
+            {
+                Button button = GetButtonFromKey(e.Key);
+                if (button is null) return;
+
                 button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
                 button.Focus();
             }

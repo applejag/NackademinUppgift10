@@ -32,6 +32,26 @@ namespace Calculator.Objects
             AppendLimit = (long)Math.Pow(10, NumOfDigits - 1) - 1;
         }
 
+        public void RemoveDigit()
+        {
+            if (!_state.Input.HasValue)
+                return;
+
+            if (_state.JustEvaluated)
+                _state = new CalculatorState();
+            else
+            {
+                if (_state.Input < 10)
+                    _state.Input = null;
+                else
+                    _state.Input /= 10;
+
+                _state.JustEvaluated = false;
+            }
+
+            SetOutput(_state.Input);
+        }
+
         public void AppendDigit(int digit)
         {
             if (_state.JustEvaluated)
