@@ -61,9 +61,17 @@ namespace Calculator.Objects
         public void SetOperator(Operator op)
         {
             _state.Operator = op;
-            EvaluateAndSetOutput();
 
-            _state.Input = null;
+            if (_state.JustEvaluated)
+            {
+                _state.Input = null;
+            }
+            else
+            {
+                EvaluateAndSetOutput();
+                _state.Input = null;
+            }
+
             _state.JustEvaluated = false;
         }
 
