@@ -71,6 +71,7 @@ namespace Calculator
             if (e.Key == Key.Delete || e.Key == Key.Back)
             {
                 _calculator.RemoveDigit();
+                e.Handled = true;
             }
             else
             {
@@ -79,6 +80,7 @@ namespace Calculator
 
                 button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
                 button.Focus();
+                e.Handled = true;
             }
         }
 
