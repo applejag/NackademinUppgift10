@@ -86,7 +86,7 @@ namespace Calculator.Objects
             {
                 _state.Input = null;
             }
-            else
+            else if(!(_state.Input is null))
             {
                 EvaluateAndSetOutput();
                 _state.Input = null;
@@ -127,6 +127,7 @@ namespace Calculator.Objects
         protected virtual void SetOutput(string output)
         {
             OutputChanged?.Invoke(output ?? PaddingChar.ToString());
+            //OutputChanged?.Invoke($"{_state.StoredResult}, {_state.Operator}, {_state.Input}");
         }
     }
 }
